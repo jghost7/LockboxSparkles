@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="art/logo-400.png" alt="Lockbox Sparkles logo" width="200" />
+</p>
+
 # Lockbox Sparkles (WoW: Forever)
 
 Adds animated shimmering sparkles to open-world lockboxes, footlockers, and locked chests that Rogues can unlock in **World of Warcraft: Forever** (`Interface: 16001`).

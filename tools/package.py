@@ -120,7 +120,7 @@ def main():
             expected = f"LockboxSparkles/{rel}"
             if expected not in names:
                 fail(f"Missing TOC file in zip: {expected}")
-        for asset in ("sparkle_star.tga", "sparkle_glow.tga", "sparkle_dot.tga"):
+        for asset in ("sparkle_star.tga", "sparkle_glow.tga", "sparkle_dot.tga", "icon.tga"):
             expected = f"LockboxSparkles/Media/{asset}"
             if expected not in names:
                 fail(f"Missing media asset in zip: {expected}")
