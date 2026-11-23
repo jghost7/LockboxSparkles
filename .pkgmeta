@@ -1,0 +1,13 @@
+package-as: LockboxSparkles
+
+move-folders:
+  LockboxSparkles/LockboxSparkles: LockboxSparkles
+
+ignore:
+  - .github
+  - .gitignore
+  - .pkgmeta
+  - tests
+  - tools
+  - dist
+  - README.md

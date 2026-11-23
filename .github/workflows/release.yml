@@ -1,0 +1,36 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install lupa
+      - name: Check tag matches TOC version
+        run: |
+          toc=$(sed -n 's/^## Version:[[:space:]]*\([^[:space:]]*\).*/\1/p' LockboxSparkles/LockboxSparkles.toc | tr -d '\r')
+          [ "v$toc" = "$GITHUB_REF_NAME" ] || { echo "Tag $GITHUB_REF_NAME does not match TOC version $toc"; exit 1; }
+          echo "VERSION=$toc" >> "$GITHUB_ENV"
+      - name: Package addon (runs tests first)
+        run: python tools/package.py
+      - name: Extract changelog notes
+        run: |
+          awk -v v="$VERSION" '$0 ~ "^## "v"( |$)" {f=1; next} /^## / {if (f) exit} f' LockboxSparkles/CHANGELOG.md | tr -d '\r' > notes.md
+          printf '\n**Install:** download `LockboxSparkles.zip` below and unzip it into `World of Warcraft\\_forever_\\Interface\\AddOns`.\n' >> notes.md
+      - name: Publish GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cp "dist/LockboxSparkles-$VERSION.zip" LockboxSparkles.zip
+          gh release create "$GITHUB_REF_NAME" "dist/LockboxSparkles-$VERSION.zip" LockboxSparkles.zip \
+            --title "Lockbox Sparkles $VERSION" --notes-file notes.md

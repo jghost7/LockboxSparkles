@@ -1,0 +1,14 @@
+## Interface: 16001
+## Title: Lockbox Sparkles
+## Notes: Adds shimmering sparkles to open-world lockboxes, footlockers, and locked chests that rogues can unlock in WoW: Forever.
+## Author: Josh McCann
+## Version: 1.0.0
+## Category: Professions
+## X-License: MIT
+## SavedVariables: LockboxSparklesDB
+
+Data.lua
+Core.lua
+Sparkles.lua
+Detector.lua
+Options.lua
